@@ -1,8 +1,5 @@
 package com.yscredit.common.constants;
 
-/**
- * @author ys
- */
 public class Constant {
 
     /**

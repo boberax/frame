@@ -16,6 +16,7 @@ public class Effect<T> implements Serializable {
      * 返回码值,默认值Const.FAI
      */
     private int res= Constant.FAIL;
+
     /**
      * 返回码值解析
      */
@@ -24,6 +25,16 @@ public class Effect<T> implements Serializable {
      * 返回对象
      */
     private Object obj;
+
+    private String code;
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
 
     public int getRes() {
         return res;
@@ -51,11 +62,13 @@ public class Effect<T> implements Serializable {
     public void setSucceed(Object obj,String resMsg){
         this.setResMsg(resMsg);
         this.setSucceed(obj);
+        this.setCode(Constant.SUCCEED+"");
     }
 
     public void setFail(Object obj,String resMsg){
         this.setResMsg(resMsg);
         this.setObj(obj);
+        this.setCode(Constant.FAIL+"");
     }
     /**
      * 设置成功值
@@ -64,6 +77,7 @@ public class Effect<T> implements Serializable {
     public void setSucceed(Object obj){
         this.obj = obj;
         this.setRes(Constant.SUCCEED);
+        this.setCode(Constant.SUCCEED+"");
     }
     /**
      * 设置成功值
@@ -72,6 +86,7 @@ public class Effect<T> implements Serializable {
     public void setSucceedMsg(String resMsg){
         this.setRes(Constant.SUCCEED);
         this.setResMsg(resMsg);
+        this.setCode(Constant.SUCCEED+"");
     }
     /**
      * 设置失败值
@@ -81,6 +96,7 @@ public class Effect<T> implements Serializable {
         this.obj = null;
         this.setRes(Constant.FAIL);
         this.setResMsg(resMsg);
+        this.setCode(Constant.FAIL+"");
     }
 
 }
