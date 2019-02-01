@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yscredit.modules.app.mapper.DcDatabaseMsgMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.yscredit.modules.app.entity.DcDatabaseMsgEntity" id="BaseResult">
+        <result property="databaseId" column="database_id"/>
+        <result property="databaseIp" column="database_ip"/>
+        <result property="databaseName" column="database_name"/>
+        <result property="departmentId" column="department_id"/>
+        <result property="departmentName" column="department_name"/>
+        <result property="databaseType" column="database_type"/>
+        <result property="databaseUsername" column="database_username"/>
+        <result property="databasePassword" column="database_password"/>
+        <result property="databasePort" column="database_port"/>
+        <result property="databaseUrl" column="database_url"/>
+        <result property="type" column="type"/>
+        <result property="createTime" column="create_time"/>
+        <result property="databaseTypecon" column="database_typeCon"/>
+        <result property="status" column="status"/>
+        <result property="name" column="name"/>
+    </resultMap>
+
+    <sql id="sqlWhere">
+        <trim prefix="where" prefixOverrides="and|or">
+            <if test="departmentId != null and departmentId !='' ">and department_id = #{departmentId}</if>
+            <if test="databaseTypecon != null and databaseTypecon !='' ">and database_typeCon = #{databaseTypecon}</if>
+            <if test="databaseIp != null and databaseIp !='' ">and database_ip like concat('%',#{databaseIp},'%')</if>
+            <if test="databaseName != null and databaseName !='' ">and database_name like concat('%',#{databaseName},'%')</if>
+            <if test="name != null and name !='' ">and name like concat('%',#{name},'%')</if>
+            <if test="type != null and type !='' ">and type = #{type}</if>
+            <if test="status != null and status !='' ">and status = #{status}</if>
+            <if test="keyWord != null and keyWord !='' ">
+                and (
+                    database_ip like concat('%',#{keyWord},'%') or
+                    database_name like concat('%',#{keyWord},'%') or
+                    name like concat('%',#{keyWord},'%')
+                )
+            </if>
+        </trim>
+    </sql>
+
+    <select id="query" resultMap="BaseResult" parameterType="com.yscredit.modules.app.entity.DcDatabaseMsgEntity">
+        select * from dc_database_msg
+        <include refid="sqlWhere"/>
+    </select>
+
+    <select id="getDatabaseTypeConWithAll" resultMap="BaseResult">
+        SELECT DISTINCT database_typeCon FROM dc_database_msg
+    </select>
+
+    <insert id="insert" parameterType="com.yscredit.modules.app.entity.DcDatabaseMsgEntity">
+      insert into dc_database_msg
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+                    <if test="databaseId !=null and databaseId !=''" >
+            database_id,
+            </if>
+                    <if test="databaseIp !=null and databaseIp !=''" >
+            database_ip,
+            </if>
+                    <if test="databaseName !=null and databaseName !=''" >
+            database_name,
+            </if>
+                    <if test="departmentId !=null and departmentId !=''" >
+            department_id,
+            </if>
+                    <if test="departmentName !=null and departmentName !=''" >
+            department_name,
+            </if>
+                    <if test="databaseType !=null and databaseType !=''" >
+            database_type,
+            </if>
+                    <if test="databaseUsername !=null and databaseUsername !=''" >
+            database_username,
+            </if>
+                    <if test="databasePassword !=null and databasePassword !=''" >
+            database_password,
+            </if>
+                    <if test="databasePort !=null and databasePort !=''" >
+            database_port,
+            </if>
+                    <if test="databaseUrl !=null and databaseUrl !=''" >
+            database_url,
+            </if>
+                    <if test="type !=null and type !=''" >
+            type,
+            </if>
+                    <if test="createTime !=null and createTime !=''" >
+            create_time,
+            </if>
+                    <if test="databaseTypecon !=null and databaseTypecon !=''" >
+            database_typeCon,
+            </if>
+                    <if test="status !=null and status !=''" >
+            status,
+            </if>
+                    <if test="name !=null and name !=''" >
+            name,
+            </if>
+                </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+                      <if test="databaseId !=null and databaseId !=''" >
+                #{databaseId},
+              </if>
+                          <if test="databaseIp !=null and databaseIp !=''" >
+                #{databaseIp},
+              </if>
+                          <if test="databaseName !=null and databaseName !=''" >
+                #{databaseName},
+              </if>
+                          <if test="departmentId !=null and departmentId !=''" >
+                #{departmentId},
+              </if>
+                          <if test="departmentName !=null and departmentName !=''" >
+                #{departmentName},
+              </if>
+                          <if test="databaseType !=null and databaseType !=''" >
+                #{databaseType},
+              </if>
+                          <if test="databaseUsername !=null and databaseUsername !=''" >
+                #{databaseUsername},
+              </if>
+                          <if test="databasePassword !=null and databasePassword !=''" >
+                #{databasePassword},
+              </if>
+                          <if test="databasePort !=null and databasePort !=''" >
+                #{databasePort},
+              </if>
+                          <if test="databaseUrl !=null and databaseUrl !=''" >
+                #{databaseUrl},
+              </if>
+                          <if test="type !=null and type !=''" >
+                #{type},
+              </if>
+                          <if test="createTime !=null and createTime !=''" >
+                #{createTime},
+              </if>
+                          <if test="databaseTypecon !=null and databaseTypecon !=''" >
+                #{databaseTypecon},
+              </if>
+                          <if test="status !=null and status !=''" >
+                #{status},
+              </if>
+                          <if test="name !=null and name !=''" >
+                #{name},
+              </if>
+                    </trim>
+    </insert>
+
+    <update id="update"  parameterType="com.yscredit.modules.app.entity.DcDatabaseMsgEntity">
+        update  dc_database_msg
+        <set>
+            <if test="databaseIp != null">
+                database_ip =  #{databaseIp},
+            </if>
+            <if test="databaseName != null">
+                database_name =  #{databaseName},
+            </if>
+            <if test="departmentId != null">
+                department_id =  #{departmentId},
+            </if>
+            <if test="departmentName != null">
+                department_name =  #{departmentName},
+            </if>
+            <if test="databaseType != null">
+                database_type =  #{databaseType},
+            </if>
+            <if test="databaseUsername != null">
+                database_username =  #{databaseUsername},
+            </if>
+            <if test="databasePassword != null">
+                database_password =  #{databasePassword},
+            </if>
+            <if test="databasePort != null">
+                database_port =  #{databasePort},
+            </if>
+            <if test="databaseUrl != null">
+                database_url =  #{databaseUrl},
+            </if>
+            <if test="type != null">
+                type =  #{type},
+            </if>
+            <if test="databaseTypecon != null">
+                database_typeCon =  #{databaseTypecon},
+            </if>
+            <if test="status != null">
+                status =  #{status},
+            </if>
+            <if test="name != null">
+                name =  #{name},
+            </if>
+        </set>
+        where
+          database_id =  #{databaseId}
+    </update>
+
+    <delete id="delete"  parameterType="java.lang.Integer">
+        delete from dc_database_msg where database_id = #{id}
+    </delete>
+
+    <select id="findById" parameterType="java.lang.Long" resultMap="BaseResult">
+        select * from dc_database_msg where database_id = #{id}
+    </select>
+
+    <select id="findByNameAndType" resultMap="BaseResult" parameterType="com.yscredit.modules.app.entity.DcDatabaseMsgEntity">
+        select * from dc_database_msg where database_name = #{databaseName} and  department_id =  #{departmentId}
+        and type = 'M'
+    </select>
+
+</mapper>
